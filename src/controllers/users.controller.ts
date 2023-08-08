@@ -1,9 +1,9 @@
 import logger from '../../logger/logger';
 import User from '../models/users.model';
 
-const user = {};
+const user : { [key: string]: any } = {};
 
-user.getAll = async (req, res) => {
+user.getAll = async (req: any, res: any) => {
     try{
         const users = await User.getAll();
         logger.info('Sending all users')
@@ -22,7 +22,7 @@ user.getAll = async (req, res) => {
         });
     }
 }
-user.addNew = async (req, res) => {
+user.addNew = async (req: any, res: any) => {
     let userToAdd = User(req.body);
     try {
         const newUser = await User.addUser(userToAdd);

@@ -4,7 +4,7 @@ const apiUrl = '/api/v1';
 import Ping from './ping.router';
 import User from './users.router';
 
-const routers = (app) => {
+function routers(app: any) {
     app.use(apiUrl + '/ping', Ping);
     app.use(apiUrl + '/users', User);
 };

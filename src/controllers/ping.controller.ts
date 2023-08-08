@@ -1,8 +1,8 @@
 import logger from '../../logger/logger';
 
-const ping = {};
+const ping: { [key: string]: any } = {};
 
-ping.index = async (req, res) => {
+ping.index = async (req: any, res: any) => {
     try{
         logger.info('responding to ping ...')
         res.send('Pong!')

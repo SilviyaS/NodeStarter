@@ -7,11 +7,11 @@ import config from './config/config'
 import dbConnect from './db/connect'
 import routers from './src/routers';
 
-const port = config.port;
+const port: number = config.port;
 dbConnect();
 
 logger.stream = {
-    write: function(message, encoding){
+    write: function(message: string, encoding: string){
         logger.info(message);
     }
 };
@@ -24,14 +24,14 @@ app.use(morgan("dev", { "stream": logger.stream }));
 
 routers(app);
 
-app.use((req, res, next) => {
-    var err = new Error('Not Found');
+app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+    var err : any = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
 if (app.get('env') === 'development') {
-    app.use((err, req, res, next) => {
+    app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
@@ -41,7 +41,7 @@ if (app.get('env') === 'development') {
     });
 }
 
-app.use((err, req, res, next) => {
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,

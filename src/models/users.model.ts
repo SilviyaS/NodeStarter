@@ -12,7 +12,7 @@ const UserSchema = mongoose.Schema({
     password: String
 },{
     toJSON: {
-        transform(doc, ret, options){
+        transform(doc: any, ret: any, options: any): void {
             const sanitized = _.omit(ret, '__v', '_id', 'password');
             sanitized.id = doc._id;
             return sanitized;
@@ -20,16 +20,16 @@ const UserSchema = mongoose.Schema({
     }
 });
 
-UserSchema.pre('save', async function (next) {
+UserSchema.pre('save', async function (next: any) {
     let user = this;
     console.log(this);
     if(!user.isModified('password'))
         return next();
 
-    bcrypt.genSalt(10, function (err, salt) {
+    bcrypt.genSalt(10, function (err: any, salt: any) {
         if(err) return next(err);
 
-        bcrypt.hash(user.password, salt, function (err, hash) {
+        bcrypt.hash(user.password, salt, function (err: any, hash: any) {
             if(err) return next(err);
 
             user.password = hash;
@@ -41,10 +41,10 @@ UserSchema.plugin(timestamps);
 
 let UserModel = mongoose.model('User', UserSchema);
 
-UserModel.getAll = () => {
+UserModel.getAll = (): any => {
     return UserModel.find({});
 }
-UserModel.addUser = (userToAdd) => {
+UserModel.addUser = (userToAdd: any): any => {
     return userToAdd.save();
 }
 

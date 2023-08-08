@@ -2,9 +2,7 @@ import Mongoose from 'mongoose';
 import logger from '../logger/logger'
 import config from '../config/config'
 
-Mongoose.Promise = global.Promise;
-
-const dbConnect = async () => {
+const dbConnect = async (): Promise<void> => {
     try {
         await Mongoose.connect(config.db, { useMongoClient: true });
         logger.info('Connected to mongo!!!');
